@@ -19,7 +19,7 @@ oc start-build security-scans \
 }
 }
 }
-  stage('Security Scan') {
+stage('Security Scan') {
 steps {
 dir('shopping-cart') {
 sh """
@@ -29,8 +29,7 @@ oc process -f kubefiles/security-scan-template.yml \
 -p CVE_CODE=CVE-2020-14583 \
 | oc replace --force -n ${APP_NAMESPACE} -f -
 """
-sh "! ../tools/check-job-state.sh security-scans-trivy
-${APP_NAMESPACE}"
+sh "! ../tools/check-job-state.sh security-scans-trivy ${APP_NAMESPACE}"
 }
 }
 }
